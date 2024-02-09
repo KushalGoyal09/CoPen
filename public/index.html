@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #pad {
+            font-size: 2rem;
+            width: 70%;
+            height: 80vh;
+            resize: none;
+            margin: 15px auto;
+            display: block;
+            border: 5px solid black;
+        }
+
+        #pad:focus {
+            border: 5px solid rgb(43, 198, 226);
+        }
+    </style>
+</head>
+
+<body>
+    <textarea name="pad" id="pad"></textarea>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const pad = document.getElementById("pad");
+        pad.addEventListener('input', () => {
+            socket.emit('change', pad.value);
+        })
+        socket.on('change', (msg) => {
+            pad.value = msg;
+        })
+    </script>
+</body>
+
+</html>
