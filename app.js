@@ -18,7 +18,7 @@ app.use(express.static('./public'));
 io.on('connection', (socket) => {
     console.log("user joined");
     socket.on('change', (msg) => {
-        io.emit('change', msg);
+        socket.broadcast.emit('change', msg);
     })
 })
 
